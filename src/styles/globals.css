@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Strasua";
+  src: url("/fonts/Strasua.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -18,4 +25,23 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  /* font-family: 'Strasua', sans-serif;  */
+}
+
+/* custom container  */
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+.container-lg {
+  width: 80%;
+  margin: 0 auto;
+}
+.container-xl {
+  width: 70%;
+  margin: 0 auto;
+}
+.container-2xl {
+  width: 60%;
+  margin: 0 auto;
 }
