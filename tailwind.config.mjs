@@ -13,6 +13,9 @@ export default {
       },
       backgroundImage: {
         "hero-bg": "url('/images/frontend/home/hero.jpeg')",
+        "testimonial-bg": "url('/images/frontend/home/wave.png')",
+        "qoute-bg": "url('/images/frontend/home/qoute-bg.png')",
+        "contact-bg": "url('/images/frontend/home/contact-bg.png')",
       },
     },
   },

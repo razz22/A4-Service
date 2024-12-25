@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <div className="relative">
       {/* Header - Transparent Black */}
-      <header className="w-full h-[100px] fixed top-0 left-0 z-20 bg-black bg-opacity-35 border-b border-[#2C2D2D] text-white flex items-center px-[25px]">
+      <header className="w-full h-[100px] fixed top-0 left-0 z-20 bg-[#000000bf]  border-b border-[#2C2D2D] text-white flex items-center px-[25px]">
         {/* Logo */}
         <div className="w-[250px] border-r border-[#2C2D2D] h-full flex items-center justify-center">
           <img
@@ -48,11 +48,11 @@ const Header = () => {
 
         {/* Hero Content */}
         <div className="relative z-10 text-white  items-center justify-center h-full flex flex-col gap-10">
-          <h1 className="text-[105px] leading-[108px] font-bold text-center">
+          <h1 className="text-[95px] leading-[108px] font-bold text-center">
             Your reliable expert for every <br /> property care need
           </h1>
 
-          <button className="px-12 py-5 bg-[#87C03D] text-[#0F0F0F] text-[14px] font-bold">
+          <button className="px-12 py-5 bg-[#87C03D] text-[#0F0F0F] text-[14px] font-bold hover:bg-[#0F0F0F] transition-all hover:text-white">
             Book A Service
           </button>
         </div>
