@@ -29,16 +29,22 @@ body {
 }
 
 /* custom container  */
+.wrapper {
+  width: 100%;
+  max-width: 1800px;
+}
 .container {
   width: 90%;
   margin: 0 auto;
 }
 .container-lg {
   width: 80%;
+  max-width: 1600px;
   margin: 0 auto;
 }
 .container-xl {
   width: 70%;
+  max-width: 1800px;
   margin: 0 auto;
 }
 .container-2xl {
