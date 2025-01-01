@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .animate-spin-fast {
+    animation: spin 0.5s linear infinite; /* Faster spin */
+  }
+}
 @font-face {
   font-family: "Strasua";
   src: url("/fonts/Strasua.otf") format("opentype");
@@ -50,4 +55,20 @@ body {
 .container-2xl {
   width: 60%;
   margin: 0 auto;
+}
+
+.testimonial__slider {
+  padding: 35px 0px !important;
+}
+.services__slider {
+  padding: 20px 0px !important;
+}
+
+.services__slider .swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+.testimonial__slider .swiper-slide {
+  display: flex;
+  justify-content: center;
 }
