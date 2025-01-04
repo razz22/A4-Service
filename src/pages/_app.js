@@ -1,11 +1,14 @@
+import AdminController from "@/components/layouts/admin/AdminController";
 import AdminLayout from "@/components/layouts/admin/AdminLayout";
 import FrontendLayout from "@/components/layouts/frontend/FrontendLayout";
 import Loading from "@/components/layouts/frontend/Loading";
+import store, { persistor } from "@/features/redux/store";
 import "@/styles/globals.css";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 export default function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -42,7 +45,7 @@ export default function App({ Component, pageProps }) {
 
   const isAdminRoute = router.pathname.startsWith("/admin");
 
-  const Layout = isAdminRoute ? AdminLayout : FrontendLayout;
+  const Layout = isAdminRoute ? AdminController : FrontendLayout;
   return (
     <>
       {loading ? (
@@ -53,10 +56,13 @@ export default function App({ Component, pageProps }) {
             <link rel="icon" href="/images/frontend/favicon.png" />
             <title>A4-Service</title>
           </Head>
-
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </PersistGate>
+          </Provider>
         </>
       )}
     </>
