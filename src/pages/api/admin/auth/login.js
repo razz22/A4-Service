@@ -2,8 +2,9 @@ import dbConnect from "@/lib/dbConnect";
 import AdminModel from "@/models/admin/AdminSchema";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import allowCors from "@/lib/cors";
 
-export default async function handler(req, res) {
+const handler = async (req, res) => {
   if (req.method === "POST") {
     await dbConnect();
     const { email, password } = req.body;
@@ -52,4 +53,6 @@ export default async function handler(req, res) {
       .status(405)
       .json({ success: false, message: "Method not allowed" });
   }
-}
+};
+
+export default allowCors(handler);
