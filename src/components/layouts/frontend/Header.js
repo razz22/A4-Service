@@ -21,7 +21,7 @@ const Header = () => {
           <div className="md:hidden">
             <BiMenuAltRight className="text-white text-[26px] cursor-pointer" />
           </div>
-          <ul className="md:flex gap-4 items-center hidden">
+          <ul className="items-center hidden gap-4 md:flex">
             <li>
               {" "}
               <a href="" className="text-[13px] lg:text-[16px]">
@@ -79,7 +79,7 @@ const Header = () => {
           <img src="/images/frontend/phone.png" alt="Phone" />
           <div className="flex flex-col">
             <span className="text-[#79BB51]">Call Anytime</span>
-            <span className="text-white font-bold">+12 ( 345 ) 6789</span>
+            <span className="font-bold text-white">+12 ( 345 ) 6789</span>
           </div>
         </div>
       </header>
@@ -90,7 +90,7 @@ const Header = () => {
         <div className="absolute inset-0 bg-black bg-opacity-45"></div>
 
         {/* Hero Content */}
-        <div className="relative z-10 text-white flex flex-col items-center justify-center h-full gap-6 px-4 md:gap-10">
+        <div className="relative z-10 flex flex-col items-center justify-center h-full gap-6 px-4 text-white md:gap-10">
           <h1 className="text-[50px] leading-[55px] font-bold text-center md:text-[60px]  md:leading-[70px] lg:text-[80px] lg:leading-[90px] xl:text-[95px] xl:leading-[108px]">
             Your reliable expert for every <br className="hidden md:block" />{" "}
             property care need

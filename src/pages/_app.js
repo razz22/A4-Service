@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import { motion, AnimatePresence } from "framer-motion";
 export default function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -46,6 +47,7 @@ export default function App({ Component, pageProps }) {
   const isAdminRoute = router.pathname.startsWith("/admin");
 
   const Layout = isAdminRoute ? AdminController : FrontendLayout;
+
   return (
     <>
       {loading ? (

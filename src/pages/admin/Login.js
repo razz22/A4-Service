@@ -1,11 +1,48 @@
 import { setAdminToken } from "@/features/redux/slices/adminSlices/adminAuthSlice";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useLoginMutation } from "@/features/redux/apiQuery/admin/authApi";
 const Login = () => {
-  const dispatch = useDispatch();
-  const handleLogin = () => {
-    dispatch(setAdminToken(true));
+  // state
+  const [loginState, setLoginState] = useState({ email: "", password: "" });
+
+  // rtk api login mutation query
+  const [handleLoginApi, { isLoading }] = useLoginMutation();
+
+  // onchange handle state
+  const handleState = (e) => {
+    const { name, value } = e.target;
+    setLoginState({
+      ...loginState,
+      [name]: value,
+    });
   };
+
+  // declare dispatch
+  const dispatch = useDispatch();
+
+  // submit login handler
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const payload = {
+      email: loginState?.email,
+      password: loginState?.password,
+    };
+
+    handleLoginApi(payload)
+      .unwrap()
+      .then((res) => {
+        if (res?.success) {
+          dispatch(
+            setAdminToken({ token: res?.data?.token, user: res?.data?.user })
+          );
+        } else {
+          alert(res?.message);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  console.log("loading", isLoading);
   return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-500 to-blue-600">
@@ -30,6 +67,8 @@ const Login = () => {
               <input
                 type="email"
                 id="email"
+                name="email"
+                onChange={handleState}
                 className="block w-full px-4 py-3 mt-2 text-gray-900 bg-gray-100 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                 placeholder="you@example.com"
                 required
@@ -45,6 +84,8 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
+                name="password"
+                onChange={handleState}
                 className="block w-full px-4 py-3 mt-2 text-gray-900 bg-gray-100 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                 placeholder="********"
                 required
@@ -68,9 +109,13 @@ const Login = () => {
             <button
               onClick={handleLogin}
               type="submit"
-              className="w-full px-4 py-3 font-semibold text-white rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-800 focus:outline-none "
+              className="w-full px-4 py-3 text-white rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-800 focus:outline-none "
             >
-              Sign In
+              {isLoading ? (
+                <span>Processing...</span>
+              ) : (
+                <span className="font-semibold">Sign In</span>
+              )}
             </button>
           </form>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoHomeSharp } from "react-icons/io5";
 import { GoChevronDown } from "react-icons/go";
 import { RiListSettingsLine } from "react-icons/ri";
@@ -7,33 +7,60 @@ import Dropdown from "./Dropdown";
 import { ImExit } from "react-icons/im";
 import { useDispatch } from "react-redux";
 import { removeAdminToken } from "@/features/redux/slices/adminSlices/adminAuthSlice";
+import { useRouter } from "next/router";
 const Sidebar = () => {
   const dispatch = useDispatch();
+
+  const router = useRouter();
 
   const [menus, setMenus] = useState([
     {
       id: 1,
       name: "Dashboard",
+      path: "/admin",
       icon: IoHomeSharp,
       submenu: null,
+      isSelected: false,
     },
     {
       id: 2,
       name: "Services",
       icon: RiListSettingsLine,
       submenu: [
-        { id: 11, name: "List" },
-        { id: 22, name: "Add Service" },
+        {
+          id: 11,
+          name: "List",
+          path: "/admin/services/list",
+          isSelected: false,
+        },
+        {
+          id: 22,
+          name: "Add Service",
+          path: "/admin/services/add-service",
+          isSelected: false,
+        },
       ],
+      isSelected: false,
     },
     {
       id: 3,
       name: "Settings",
       icon: ImCogs,
       submenu: [
-        { id: 23, name: "App Settings" },
-        { id: 24, name: "Profile Settings" },
+        {
+          id: 23,
+          name: "App Settings",
+          path: "/admin/settings/app-settings",
+          isSelected: false,
+        },
+        {
+          id: 24,
+          name: "Profile Settings",
+          path: "/admin/settings/profile-settings",
+          isSelected: false,
+        },
       ],
+      isSelected: false,
     },
   ]);
 
@@ -41,9 +68,43 @@ const Sidebar = () => {
     dispatch(removeAdminToken());
   };
 
+  useEffect(() => {
+    const updateActiveMenu = () => {
+      const currentPath = router.pathname;
+
+      const updatedMenus = menus.map((menu) => {
+        if (menu.submenu) {
+          // Check if any submenu matches the current path
+          const isChildActive = menu.submenu.some(
+            (sub) => sub.path === currentPath
+          );
+
+          return {
+            ...menu,
+            isSelected: isChildActive,
+            submenu: menu.submenu.map((sub) => ({
+              ...sub,
+              isSelected: sub.path === currentPath, // Mark child as selected
+            })),
+          };
+        }
+
+        // Check if the parent menu's path matches the current path
+        return {
+          ...menu,
+          isSelected: menu.path === currentPath,
+        };
+      });
+
+      setMenus(updatedMenus);
+    };
+
+    updateActiveMenu();
+  }, [router.pathname]);
+
   return (
     <>
-      <div className="w-[250px] h-screen fixed left-0 top-0">
+      <div className="w-[250px] h-screen fixed left-0 top-0 z-50">
         <div className="w-full h-full bg-[#1C1F22] relative">
           {/* sidebar logo area  */}
 
